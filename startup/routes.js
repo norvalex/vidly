@@ -6,20 +6,15 @@ const rentals = require("../routes/rentals");
 const returns = require("../routes/returns");
 const movies = require("../routes/movies");
 const error = require("../middleware/error");
-// const home = require("../routes/home");
+const home = require("../routes/home");
 const morgan = require("morgan");
-// const helmet = require("helmet");
 const express = require("express");
-const winston = require('winston')
-
-// const debug = require("debug")("app:startup");
+const winston = require("winston");
 
 module.exports = function (app) {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static("public"));
-  // app.use(helmet());
-  // app.use(logger);
 
   if (app.get("env") === "development") {
     app.use(morgan("tiny"));
@@ -34,6 +29,6 @@ module.exports = function (app) {
   app.use("/api/returns", returns);
   app.use("/api/users", users);
   app.use("/api/auth", auth);
-  // app.use("/", home);
+  app.use("/", home);
   app.use(error);
 };
